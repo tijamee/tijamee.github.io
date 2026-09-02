@@ -1,11 +1,903 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Jamee — Creative Designer</title>
+<meta name="description" content="Al Jamee is a creative designer based in Dhaka, Bangladesh, working across branding, print, packaging and digital design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #FAF8F4;
+    --bg-raised: #F2EFE9;
+    --ink: #1B1A17;
+    --ink-soft: #625E56;
+    --ink-faint: #A6A099;
+    --line: #DFDAD1;
+    --line-strong: #C9C2B7;
+    --accent: #6B6459;
+    --card-1: #EFEAE1;
+    --card-2: #E7E1D6;
+    --card-3: #DED7C9;
+
+    --font-display: "Inter Tight", "Inter", "Helvetica Neue", sans-serif;
+    --font-body: "Inter", "Helvetica Neue", sans-serif;
+
+    --container: 1240px;
+    --edge: clamp(24px, 5vw, 72px);
+
+    --ease: cubic-bezier(.22, .61, .36, 1);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection{ background: var(--ink); color: var(--bg); }
+
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width: 100%; display:block; }
+
+  .wrap{
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  /* ---------- link underline treatment ---------- */
+  .u-link{
+    position: relative;
+    display: inline-block;
+  }
+  .u-link::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .45s var(--ease);
+  }
+  .u-link:hover::after,
+  .u-link:focus-visible::after{
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ---------- reveal on scroll (single, restrained) ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .8s var(--ease), transform .8s var(--ease);
+  }
+  .reveal.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ================= NAV ================= */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 248, 244, 0);
+    border-bottom: 1px solid transparent;
+    transition: background .4s var(--ease), border-color .4s var(--ease);
+  }
+  header.site-nav.is-scrolled{
+    background: rgba(250, 248, 244, 0.88);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 22px var(--edge);
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .nav-name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .nav-links{
+    display:flex;
+    gap: 36px;
+    list-style:none;
+    margin:0; padding:0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .nav-links a{ transition: color .25s; }
+  .nav-links a:hover{ color: var(--ink); }
+  .nav-cta{
+    font-size: 14.5px;
+    font-weight: 500;
+    border: 1px solid var(--line-strong);
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: background .25s, color .25s, border-color .25s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover{
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .nav-links-mobile{ display:none; }
+
+  /* ================= HERO ================= */
+  .hero{
+    padding: clamp(72px, 14vw, 168px) 0 clamp(64px, 10vw, 120px);
+  }
+  .hero-eyebrow{
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  .hero-name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(56px, 10.5vw, 132px);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  .hero-role{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(56px, 10.5vw, 132px);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    margin: 0 0 40px;
+    color: var(--ink-faint);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 48px;
+    margin-top: 44px;
+    align-items: end;
+  }
+  .hero-intro{
+    font-size: clamp(19px, 2vw, 23px);
+    line-height: 1.5;
+    max-width: 34ch;
+    color: var(--ink);
+  }
+  .hero-meta{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+  .hero-location{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+    width: 100%;
+  }
+  .hero-ctas{
+    display:flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  /* ================= SECTION shell ================= */
+  section{
+    padding: clamp(64px, 9vw, 128px) 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: clamp(40px, 6vw, 72px);
+  }
+  .section-title{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(34px, 4.4vw, 56px);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .section-desc{
+    max-width: 34ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    text-align: right;
+  }
+
+  /* ================= WORK ================= */
+  .work-grid{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 28px;
+  }
+  .proj{
+    position: relative;
+    display:block;
+    grid-column: span 6;
+  }
+  .proj:nth-child(1){ grid-column: span 7; }
+  .proj:nth-child(2){ grid-column: span 5; }
+  .proj:nth-child(3){ grid-column: span 5; }
+  .proj:nth-child(4){ grid-column: span 7; }
+  .proj:nth-child(5){ grid-column: span 8; }
+  .proj:nth-child(6){ grid-column: span 4; }
+
+  .proj-media{
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--card-1);
+    position: relative;
+    border: 1px solid var(--line);
+  }
+  .proj:nth-child(3n+2) .proj-media{ background: var(--card-2); }
+  .proj:nth-child(3n+3) .proj-media{ background: var(--card-3); }
+
+  .proj-media .ph{
+    position:absolute; inset:0;
+    display:flex; align-items:flex-end;
+    padding: 22px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(15px, 2vw, 22px);
+    color: rgba(27,26,23,0.28);
+    letter-spacing: -0.01em;
+    transition: transform .6s var(--ease);
+  }
+  .proj-media svg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    opacity: 0.55;
+  }
+  .proj:hover .proj-media .ph{ transform: scale(1.045); }
+  .proj:hover .proj-media svg{ transform: scale(1.045); transition: transform .6s var(--ease); }
+
+  .proj-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 18px;
+    gap: 16px;
+  }
+  .proj-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+  .proj-meta{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .proj-arrow{
+    display:inline-block;
+    margin-left: 6px;
+    transition: transform .35s var(--ease);
+  }
+  .proj:hover .proj-arrow{ transform: translate(3px,-3px); }
+
+  /* ================= ABOUT ================= */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.4fr;
+    gap: 64px;
+  }
+  .about-label{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 3.2vw, 40px);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    position: sticky;
+    top: 110px;
+    align-self: start;
+  }
+  .about-copy p{
+    font-size: clamp(18px, 1.8vw, 21px);
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 22px;
+    max-width: 52ch;
+  }
+  .stat-row{
+    display:flex;
+    gap: 56px;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .stat{
+    display:flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .stat-num{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 3vw, 40px);
+    letter-spacing: -0.02em;
+  }
+  .stat-label{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ================= EXPERIENCE ================= */
+  .timeline{
+    border-top: 1px solid var(--line);
+  }
+  .tl-item{
+    border-bottom: 1px solid var(--line);
+  }
+  .tl-head{
+    display:grid;
+    grid-template-columns: 56px 1fr auto auto 24px;
+    gap: 20px;
+    align-items: center;
+    padding: 26px 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+  }
+  .tl-index{
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+  .tl-role{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(19px, 2.2vw, 25px);
+    letter-spacing: -0.01em;
+  }
+  .tl-company{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .tl-dates{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .tl-toggle{
+    width: 24px; height: 24px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .tl-toggle::before,
+  .tl-toggle::after{
+    content:"";
+    position:absolute;
+    background: var(--ink);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .tl-toggle::before{ width: 11px; height: 1px; }
+  .tl-toggle::after{ width: 1px; height: 11px; transition: transform .3s var(--ease); }
+  .tl-item.is-open .tl-toggle::after{ transform: translate(-50%,-50%) rotate(90deg) scaleY(0); }
+
+  .tl-body{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s var(--ease);
+  }
+  .tl-body-inner{
+    padding: 0 0 30px 76px;
+    max-width: 62ch;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+  .tl-item.is-open .tl-head .tl-role{ color: var(--ink); }
+
+  @media (max-width: 720px){
+    .tl-head{ grid-template-columns: 32px 1fr 20px; grid-template-areas: "idx role toggle" "idx dates toggle"; row-gap: 4px; }
+    .tl-index{ grid-area: idx; }
+    .tl-role{ grid-area: role; }
+    .tl-company{ display:none; }
+    .tl-dates{ grid-area: dates; font-size: 13px; }
+    .tl-toggle{ grid-area: toggle; }
+    .tl-body-inner{ padding-left: 32px; }
+  }
+
+  /* ================= EXPERTISE ================= */
+  .expertise-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    padding-top: 8px;
+  }
+  .exp-col{
+    border-top: 1px solid var(--line-strong);
+    padding-top: 22px;
+  }
+  .exp-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+  }
+  .exp-desc{
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .tools-row{
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    color: var(--ink-soft);
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px 0;
+  }
+  .tools-row span:not(:last-child)::after{
+    content: "·";
+    margin: 0 14px;
+    color: var(--line-strong);
+  }
+
+  /* ================= APPROACH ================= */
+  .approach{
+    text-align: left;
+  }
+  .approach-quote{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(30px, 4.6vw, 58px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    margin: 0 0 32px;
+  }
+  .approach-sub{
+    max-width: 52ch;
+    font-size: clamp(16px, 1.4vw, 18.5px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ================= CONTACT ================= */
+  .contact{
+    border-top: 1px solid var(--line);
+  }
+  .contact-title{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(38px, 6vw, 76px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 14px;
+    max-width: 14ch;
+  }
+  .contact-sub{
+    font-size: clamp(17px, 1.7vw, 21px);
+    color: var(--ink-soft);
+    margin: 0 0 52px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+  .contact-details{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-email{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 2.6vw, 30px);
+    letter-spacing: -0.01em;
+  }
+  .contact-phone{
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .contact-socials{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .contact-cta-row{
+    margin-top: 52px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .contact-cta{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(18px, 2vw, 22px);
+    border: 1px solid var(--ink);
+    padding: 16px 30px;
+    border-radius: 999px;
+    transition: background .25s, color .25s;
+    display:inline-block;
+  }
+  .contact-cta:hover{
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 30px 0;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-mid{
+    display:flex;
+    gap: 24px;
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 900px){
+    .nav-links{ display:none; }
+    .hero-grid{ grid-template-columns: 1fr; gap: 28px; }
+    .work-grid{ grid-template-columns: repeat(2,1fr); }
+    .proj{ grid-column: span 1 !important; }
+    .about-grid{ grid-template-columns: 1fr; gap: 28px; }
+    .about-label{ position: static; }
+    .expertise-grid{ grid-template-columns: 1fr; gap: 32px; }
+    .contact-grid{ grid-template-columns: 1fr; gap: 32px; }
+    .section-head{ flex-direction: column; align-items: flex-start; gap: 14px; }
+    .section-desc{ text-align: left; }
+  }
+  @media (max-width: 560px){
+    .work-grid{ grid-template-columns: 1fr; }
+    .nav-cta{ padding: 7px 14px; font-size: 13.5px; }
+    .stat-row{ gap: 34px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Jamee</h1>
+
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-name">Al Jamee</a>
+    <ul class="nav-links">
+      <li><a class="u-link" href="#work">Work</a></li>
+      <li><a class="u-link" href="#about">About</a></li>
+      <li><a class="u-link" href="#experience">Experience</a></li>
+      <li><a class="u-link" href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Let's Talk ↗</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none; padding-top: clamp(48px,10vw,96px);">
+    <div class="wrap">
+      <div class="hero-eyebrow reveal">Portfolio — Dhaka, Bangladesh</div>
+      <h1 class="hero-name reveal">Al Jamee</h1>
+      <p class="hero-role reveal">Creative Designer</p>
+
+      <div class="hero-grid">
+        <p class="hero-intro reveal">Branding, print, packaging and digital design — shaped by years of experience inside the printing industry.</p>
+        <div class="hero-meta reveal">
+          <div class="hero-ctas">
+            <a class="u-link" href="#work">View Selected Work ↓</a>
+            <a class="u-link" href="#contact">Get in Touch ↗</a>
+          </div>
+          <div class="hero-location">Dhaka, Bangladesh · Available for selected projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 class="section-title">Selected Work</h2>
+        <p class="section-desc">A selection of branding, packaging, print and digital design projects.</p>
+      </div>
+
+      <div class="work-grid reveal" id="workGrid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <h2 class="about-label reveal">A designer<br>shaped by print.</h2>
+        <div class="about-copy reveal">
+          <p>My journey started in 2007 at my family's design and printing business, where I learned design directly inside the printing industry.</p>
+          <p>Over the years, I've designed for some of the top brands in Bangladesh. Since then, I've worked on branding, print materials, advertising, packaging, and digital platform-ready artwork for local companies.</p>
+
+          <div class="stat-row">
+            <div class="stat">
+              <div class="stat-num">19+</div>
+              <div class="stat-label">Years in Design</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">6</div>
+              <div class="stat-label">Companies</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">Multiple</div>
+              <div class="stat-label">Industries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-desc">Six roles across two decades, from a family print shop to leading brand teams.</p>
+      </div>
+
+      <div class="timeline reveal" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 class="section-title">What I Do</h2>
+        <p class="section-desc">Three disciplines that meet in the middle of every project.</p>
+      </div>
+
+      <div class="expertise-grid reveal">
+        <div class="exp-col">
+          <h3 class="exp-title">Branding &amp; Identity</h3>
+          <p class="exp-desc">Brand identity, logo systems, visual direction and brand applications.</p>
+        </div>
+        <div class="exp-col">
+          <h3 class="exp-title">Print &amp; Packaging</h3>
+          <p class="exp-desc">Packaging, brochures, posters, POS materials, production artwork and print-ready design.</p>
+        </div>
+        <div class="exp-col">
+          <h3 class="exp-title">Digital &amp; Motion</h3>
+          <p class="exp-desc">Social media visuals, digital campaigns, UI/web design and motion design.</p>
+        </div>
+      </div>
+
+      <div class="tools-row reveal">
+        <span>Adobe Illustrator</span><span>Adobe Photoshop</span><span>Adobe After Effects</span><span>Figma</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <div class="wrap">
+      <p class="approach-quote reveal">From concept to production, I design with both creativity and practicality in mind.</p>
+      <p class="approach-sub reveal">Having grown inside the printing industry, I understand not only how a design looks on screen, but also how it needs to work in the real world.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2 class="contact-title reveal">Have a project in mind?</h2>
+      <p class="contact-sub reveal">Let's make something meaningful.</p>
+
+      <div class="contact-grid reveal">
+        <div class="contact-details">
+          <a class="contact-email u-link" href="mailto:heyaljamee@gmail.com">heyaljamee@gmail.com</a>
+          <a class="contact-phone u-link" href="tel:+8801751566301">+880 1751-566301</a>
+        </div>
+        <div class="contact-socials">
+          <a class="u-link" href="#" style="width:fit-content;">Behance ↗</a>
+          <a class="u-link" href="#" style="width:fit-content;">LinkedIn ↗</a>
+          <a class="u-link" href="#" style="width:fit-content;">Instagram ↗</a>
+        </div>
+      </div>
+
+      <div class="contact-cta-row reveal">
+        <span style="color:var(--ink-soft); font-size:14px;">Dhaka, Bangladesh</span>
+        <a href="mailto:heyaljamee@gmail.com" class="contact-cta">Start a Conversation ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>Al Jamee © 2026</span>
+    <div class="footer-mid">
+      <span>Creative Designer</span>
+      <span>Dhaka, Bangladesh</span>
+    </div>
+    <a class="u-link" href="#top">Back to Top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- data ----------
+  var projects = [
+    { name: "Amber & Ash Roastery", category: "Brand Identity", year: "2025" },
+    { name: "Noor Textiles", category: "Packaging Design", year: "2024" },
+    { name: "Boishakhi Print Co.", category: "Print & Campaign", year: "2024" },
+    { name: "Verve Home Digital", category: "Digital Design", year: "2023" },
+    { name: "Pallet & Co. Furniture", category: "Advertising", year: "2023" },
+    { name: "Studio Line Editorial", category: "Art Direction", year: "2022" }
+  ];
+
+  var experience = [
+    { role: "Senior Designer", company: "Hamko Corporation Ltd", dates: "Oct 2021 – Present",
+      detail: "Leading brand and print output across the group's consumer divisions — identity systems, packaging and campaign artwork taken from concept through to production-ready files." },
+    { role: "Lead Designer", company: "Mad Men Digital", dates: "Apr 2021 – Sep 2021",
+      detail: "Directed digital-first design across client accounts, setting visual direction for campaigns and coordinating output across a small design team." },
+    { role: "Senior Graphic Designer", company: "Pickaboo.com", dates: "May 2020 – Mar 2021",
+      detail: "Designed platform-ready digital assets and campaign visuals for one of the country's e-commerce marketplaces." },
+    { role: "Senior Graphic Designer", company: "Rahimafrooz Ltd", dates: "Sep 2018 – Apr 2020",
+      detail: "Produced branding, packaging and print materials across multiple product lines for a long-established manufacturing group." },
+    { role: "Graphic Designer", company: "Nabil Group", dates: "Apr 2014 – Aug 2018",
+      detail: "Worked across branding and advertising for a diversified group, developing print and campaign material for several business units." },
+    { role: "Graphic Designer", company: "Boishakhi Printing", dates: "Sep 2008 – Dec 2013",
+      detail: "Started inside the family printing business, learning design from the production floor up — where files meet plates, stock and press." }
+  ];
+
+  // ---------- render work grid ----------
+  var patterns = [
+    'M0 40 H200', 'M0 20 L200 60 M0 60 L200 20', 'M20 0 V200 M60 0 V200 M100 0 V200',
+    'M0 0 L200 200 M200 0 L0 200', 'M0 100 H200 M100 0 V200', 'M0 30 H200 M0 70 H200 M0 110 H200'
+  ];
+
+  var grid = document.getElementById('workGrid');
+  projects.forEach(function(p, i){
+    var a = document.createElement('a');
+    a.href = '#contact';
+    a.className = 'proj';
+    a.innerHTML =
+      '<div class="proj-media">' +
+        '<svg viewBox="0 0 200 200" preserveAspectRatio="none"><path d="' + patterns[i % patterns.length] + '" stroke="#1B1A17" stroke-width="0.6" fill="none"/></svg>' +
+        '<div class="ph">' + String(i+1).padStart(2,'0') + '</div>' +
+      '</div>' +
+      '<div class="proj-row">' +
+        '<div class="proj-title">' + p.name + '<span class="proj-arrow">↗</span></div>' +
+        '<div class="proj-meta">' + p.category + '<br>' + p.year + '</div>' +
+      '</div>';
+    grid.appendChild(a);
+  });
+
+  // ---------- render timeline ----------
+  var tl = document.getElementById('timeline');
+  experience.forEach(function(e, i){
+    var item = document.createElement('div');
+    item.className = 'tl-item';
+    item.innerHTML =
+      '<button class="tl-head" aria-expanded="false">' +
+        '<span class="tl-index">' + String(i+1).padStart(2,'0') + '</span>' +
+        '<span>' +
+          '<span class="tl-role">' + e.role + '</span><br>' +
+          '<span class="tl-company">' + e.company + '</span>' +
+        '</span>' +
+        '<span class="tl-dates">' + e.dates + '</span>' +
+        '<span class="tl-toggle"></span>' +
+      '</button>' +
+      '<div class="tl-body">' +
+        '<div class="tl-body-inner">' + e.detail + '</div>' +
+      '</div>';
+
+    var head = item.querySelector('.tl-head');
+    var body = item.querySelector('.tl-body');
+    head.addEventListener('click', function(){
+      var isOpen = item.classList.contains('is-open');
+      // close others
+      tl.querySelectorAll('.tl-item.is-open').forEach(function(other){
+        if(other !== item){
+          other.classList.remove('is-open');
+          other.querySelector('.tl-body').style.maxHeight = null;
+          other.querySelector('.tl-head').setAttribute('aria-expanded','false');
+        }
+      });
+      if(isOpen){
+        item.classList.remove('is-open');
+        body.style.maxHeight = null;
+        head.setAttribute('aria-expanded','false');
+      } else {
+        item.classList.add('is-open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        head.setAttribute('aria-expanded','true');
+      }
+    });
+
+    tl.appendChild(item);
+  });
+
+  // ---------- sticky nav background ----------
+  var nav = document.getElementById('siteNav');
+  var onScroll = function(){
+    if(window.scrollY > 12){ nav.classList.add('is-scrolled'); }
+    else{ nav.classList.remove('is-scrolled'); }
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---------- reveal on entrance ----------
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
 </body>
 </html>
